@@ -16,5 +16,19 @@ namespace CampusManagementSystem
         {
             InitializeComponent();
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            panel2.Width += 6;
+
+            if(panel2.Width >= 525) {
+            
+                timer1.Stop();
+
+                LoginForm lform = new LoginForm();
+                lform.Show();
+                this.Hide();
+            }
+        }
     }
 }
