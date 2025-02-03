@@ -33,13 +33,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.showpwd = new System.Windows.Forms.CheckBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.txtpwd = new System.Windows.Forms.TextBox();
             this.txtname = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.showpwd = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -104,6 +104,17 @@
             this.panel3.Size = new System.Drawing.Size(275, 280);
             this.panel3.TabIndex = 0;
             // 
+            // showpwd
+            // 
+            this.showpwd.AutoSize = true;
+            this.showpwd.Location = new System.Drawing.Point(146, 191);
+            this.showpwd.Name = "showpwd";
+            this.showpwd.Size = new System.Drawing.Size(102, 17);
+            this.showpwd.TabIndex = 6;
+            this.showpwd.Text = "Show Password";
+            this.showpwd.UseVisualStyleBackColor = true;
+            this.showpwd.CheckedChanged += new System.EventHandler(this.showpwd_CheckedChanged);
+            // 
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(36)))), ((int)(((byte)(107)))));
@@ -111,11 +122,12 @@
             this.btnLogin.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnLogin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.btnLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnLogin.Location = new System.Drawing.Point(28, 214);
+            this.btnLogin.Location = new System.Drawing.Point(28, 222);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(223, 42);
+            this.btnLogin.Size = new System.Drawing.Size(223, 34);
             this.btnLogin.TabIndex = 5;
             this.btnLogin.Text = "LOGIN";
             this.btnLogin.UseVisualStyleBackColor = false;
@@ -135,6 +147,7 @@
             // txtname
             // 
             this.txtname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtname.Location = new System.Drawing.Point(28, 83);
             this.txtname.Multiline = true;
             this.txtname.Name = "txtname";
@@ -171,17 +184,6 @@
             this.label3.Size = new System.Drawing.Size(75, 24);
             this.label3.TabIndex = 0;
             this.label3.Text = "Sign In";
-            // 
-            // showpwd
-            // 
-            this.showpwd.AutoSize = true;
-            this.showpwd.Location = new System.Drawing.Point(146, 191);
-            this.showpwd.Name = "showpwd";
-            this.showpwd.Size = new System.Drawing.Size(102, 17);
-            this.showpwd.TabIndex = 6;
-            this.showpwd.Text = "Show Password";
-            this.showpwd.UseVisualStyleBackColor = true;
-            this.showpwd.CheckedChanged += new System.EventHandler(this.showpwd_CheckedChanged);
             // 
             // LoginForm
             // 

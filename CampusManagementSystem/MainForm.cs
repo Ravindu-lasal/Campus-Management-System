@@ -16,5 +16,22 @@ namespace CampusManagementSystem
         {
             InitializeComponent();
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnlogout_Click(object sender, EventArgs e)
+        {
+            DialogResult check = MessageBox.Show("Are you want to logout?", "Confirmation Massage", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (check == DialogResult.Yes)
+            {
+                LoginForm loginForm = new LoginForm();
+                loginForm.Show();
+                this.Hide();
+            }
+        }
     }
 }
