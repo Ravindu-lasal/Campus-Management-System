@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Runtime.Remoting.Messaging;
+using MySql.Data.MySqlClient;
 
 namespace CampusManagementSystem
 {
     internal class Addteacherdata
     {
        
-        private readonly string connString = "Server=localhost;Database=campus;User ID=root;Password=12345;SslMode=none;";
+        public string connString = "Server=localhost;Database=campus;User ID=root;Password=12345;SslMode=none;"; 
 
        
         public int id {  get; set; }
@@ -28,9 +29,11 @@ namespace CampusManagementSystem
 
         public string teacherstatus { get; set; }
 
+        public string insert_date { get; set; }
+
         public List<Addteacherdata> teacherData()
         {
-            SqlConnection conn = new SqlConnection(connString);
+            MySqlConnection conn = new MySqlConnection(connString);
             List<Addteacherdata> ListData = new List<Addteacherdata>();
 
             if (conn.State != ConnectionState.Open)
@@ -40,20 +43,22 @@ namespace CampusManagementSystem
                     conn.Open();
                     string sql = "SELECT * FROM teachers WHERE date_delete IS NULL";
 
-                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    using (MySqlCommand cmd = new MySqlCommand(sql,conn))
                     {
-                        SqlDataReader reader = cmd.ExecuteReader();
+                        MySqlDataReader reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
                             Addteacherdata addData = new Addteacherdata();
-                            addData.id = Convert.ToInt32(reader["ID"]);
+                            addData.id = Convert.ToInt32(reader["id"]);
                             addData.teachertID = reader["teacher_id"].ToString();
                             addData.teacherName = reader["teacher_name"].ToString();
                             addData.teacherGender = reader["teacher_gender"].ToString();
                             addData.teacherAddress = reader["teacher_address"].ToString();
+                            addData.teacherimage = reader["teacher_image"].ToString();
                             addData.teacherstatus = reader["teacher_status"].ToString();
+                            addData.insert_date = reader["date_insert"].ToString();
 
-                            ListData.Add(addData);
+                            ListData.Add(addData);  
                         }
                     }
 

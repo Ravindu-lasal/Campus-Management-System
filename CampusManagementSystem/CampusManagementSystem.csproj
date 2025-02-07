@@ -200,5 +200,8 @@
     <Content Include="Assets\modern image for Campus Management System.png" />
     <Content Include="Assets\modern logo for Campus Management System.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="teacher images\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnteacher_delete = new System.Windows.Forms.Button();
             this.btnteacher_clear = new System.Windows.Forms.Button();
@@ -35,6 +36,7 @@
             this.btnteacher_add = new System.Windows.Forms.Button();
             this.btnteacher_import = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.imgteacher = new System.Windows.Forms.PictureBox();
             this.comteacher_status = new System.Windows.Forms.ComboBox();
             this.comteacher_gender = new System.Windows.Forms.ComboBox();
             this.txtteacher_address = new System.Windows.Forms.TextBox();
@@ -48,12 +50,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.griddata_teacher = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.imgteacher = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgteacher)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.griddata_teacher)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgteacher)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -104,6 +105,7 @@
             this.btnteacher_clear.TabIndex = 5;
             this.btnteacher_clear.Text = "Clear";
             this.btnteacher_clear.UseVisualStyleBackColor = false;
+            this.btnteacher_clear.Click += new System.EventHandler(this.btnteacher_clear_Click);
             // 
             // btnteacher_update
             // 
@@ -116,6 +118,7 @@
             this.btnteacher_update.TabIndex = 5;
             this.btnteacher_update.Text = "Update";
             this.btnteacher_update.UseVisualStyleBackColor = false;
+            this.btnteacher_update.Click += new System.EventHandler(this.btnteacher_update_Click);
             // 
             // btnteacher_add
             // 
@@ -128,6 +131,7 @@
             this.btnteacher_add.TabIndex = 5;
             this.btnteacher_add.Text = "Add";
             this.btnteacher_add.UseVisualStyleBackColor = false;
+            this.btnteacher_add.Click += new System.EventHandler(this.btnteacher_add_Click);
             // 
             // btnteacher_import
             // 
@@ -141,6 +145,7 @@
             this.btnteacher_import.TabIndex = 4;
             this.btnteacher_import.Text = "import";
             this.btnteacher_import.UseVisualStyleBackColor = false;
+            this.btnteacher_import.Click += new System.EventHandler(this.btnteacher_import_Click);
             // 
             // panel3
             // 
@@ -150,6 +155,14 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(88, 88);
             this.panel3.TabIndex = 3;
+            // 
+            // imgteacher
+            // 
+            this.imgteacher.Location = new System.Drawing.Point(0, -1);
+            this.imgteacher.Name = "imgteacher";
+            this.imgteacher.Size = new System.Drawing.Size(88, 89);
+            this.imgteacher.TabIndex = 6;
+            this.imgteacher.TabStop = false;
             // 
             // comteacher_status
             // 
@@ -263,11 +276,29 @@
             // 
             // griddata_teacher
             // 
+            this.griddata_teacher.AllowUserToAddRows = false;
+            this.griddata_teacher.AllowUserToDeleteRows = false;
+            this.griddata_teacher.AllowUserToResizeRows = false;
+            this.griddata_teacher.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(36)))), ((int)(((byte)(107)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.griddata_teacher.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.griddata_teacher.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.griddata_teacher.EnableHeadersVisualStyles = false;
             this.griddata_teacher.Location = new System.Drawing.Point(15, 21);
             this.griddata_teacher.Name = "griddata_teacher";
+            this.griddata_teacher.ReadOnly = true;
+            this.griddata_teacher.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.griddata_teacher.RowHeadersVisible = false;
             this.griddata_teacher.Size = new System.Drawing.Size(755, 209);
             this.griddata_teacher.TabIndex = 1;
+            this.griddata_teacher.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.griddata_teacher_CellClick);
             // 
             // label1
             // 
@@ -278,14 +309,6 @@
             this.label1.Size = new System.Drawing.Size(122, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Teacher\'s Data";
-            // 
-            // imgteacher
-            // 
-            this.imgteacher.Location = new System.Drawing.Point(0, -1);
-            this.imgteacher.Name = "imgteacher";
-            this.imgteacher.Size = new System.Drawing.Size(88, 89);
-            this.imgteacher.TabIndex = 6;
-            this.imgteacher.TabStop = false;
             // 
             // AddTeacherForm
             // 
@@ -298,10 +321,10 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imgteacher)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.griddata_teacher)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgteacher)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -16,7 +16,7 @@ namespace CampusManagementSystem
     public partial class LoginForm : Form
     {
 
-        private readonly string connString = "Server=localhost;Database=campus;User ID=root;Password=12345;SslMode=none;"; 
+        public string connString = "Server=localhost;Database=campus;User ID=root;Password=12345;SslMode=none;";
         
         public LoginForm()
         
