@@ -12,9 +12,14 @@ namespace CampusManagementSystem
 {
     public partial class MainForm : Form
     {
+ 
+
         public MainForm()
         {
             InitializeComponent();
+
+
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -33,6 +38,35 @@ namespace CampusManagementSystem
                 this.Hide();
             }
         }
+
+        private void btnDash_Click(object sender, EventArgs e)
+        {
+
+            if (dashboardform1 != null)
+            {
+                dashboardform1.displayTotaldata();
+            }
+
+            dashboardform1.Visible = true;
+            addStudentForm1.Visible = false;
+            addTeacherForm1.Visible = false;
+        }
+
+
+        private void btnaddStu_Click(object sender, EventArgs e)
+        {
+            dashboardform1.Visible = false;
+            addStudentForm1.Visible = true;
+            addTeacherForm1.Visible = false;
+        }
+
+        private void btnaddTea_Click(object sender, EventArgs e)
+        {
+            dashboardform1.Visible = false;
+            addStudentForm1.Visible = false;
+            addTeacherForm1.Visible = true;
+        }
+
 
     }
 }

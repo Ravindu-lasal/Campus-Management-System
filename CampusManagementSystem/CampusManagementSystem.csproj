@@ -104,6 +104,7 @@
     <Compile Include="AddStudentForm.Designer.cs">
       <DependentUpon>AddStudentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Addstudentsdata.cs" />
     <Compile Include="Addteacherdata.cs" />
     <Compile Include="AddTeacherForm.cs">
       <SubType>UserControl</SubType>
@@ -199,6 +200,7 @@
     <Content Include="Assets\icons8-teacher-giving-lecture-in-classroom-50.png" />
     <Content Include="Assets\modern image for Campus Management System.png" />
     <Content Include="Assets\modern logo for Campus Management System.png" />
+    <None Include="Resources\refresh.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="teacher images\" />

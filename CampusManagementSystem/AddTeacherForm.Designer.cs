@@ -93,6 +93,7 @@
             this.btnteacher_delete.TabIndex = 5;
             this.btnteacher_delete.Text = "Delete";
             this.btnteacher_delete.UseVisualStyleBackColor = false;
+            this.btnteacher_delete.Click += new System.EventHandler(this.btnteacher_delete_Click);
             // 
             // btnteacher_clear
             // 

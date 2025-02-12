@@ -173,36 +173,85 @@ namespace CampusManagementSystem
                txtteacher_address.Text == "" ||
                comteacher_gender.Text == "" ||
                comteacher_status.Text == "" ||
-               imgteacher.Image == null
-               )
+               imgteacher.Image == null)
             {
-                MessageBox.Show("Please fill select blank fields", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please fill all blank fields", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-
                 try
                 {
-                    conn.Open();
-                    DialogResult check = MessageBox.Show("Are you sure want to Update Teacher id: " + txtteacher_id.Text.Trim() + "?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (conn.State != ConnectionState.Open)
+                    {
+                        conn.Open();
+                    }
+
+                    DialogResult check = MessageBox.Show("Are you sure you want to update Teacher ID: " + txtteacher_id.Text.Trim() + "?",
+                                                         "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (check == DialogResult.Yes)
                     {
-                        string updateData = "INSERT teachers SET teacher_name = @teacherName, teacher_gender = @teacherGender, " +
-                            "teacher_address = @teacherAddress,teacher_image = @teacherImage, teacher_status = @teacherStatus, date_insert, " +
-                            "date_update = @dateUpdate WHERE teacher_id = @teacherID";
+                        DateTime today = DateTime.Today;
+
+                        string updateData = "UPDATE teachers SET teacher_name = @teacherName, teacher_gender = @teacherGender, " +
+                           "teacher_address = @teacherAddress, teacher_image = @teacherImage, teacher_status = @teacherStatus, " +
+                           "date_update = @dateUpdate WHERE teacher_id = @teacherID";
+
+                        // Save image
+                        string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "teacher images");
+                        string fileName = txtteacher_id.Text.Trim() + ".jpg";
+                        string destinationPath = Path.Combine(folderPath, fileName);
+
+                        // Ensure directory exists
+                        if (!Directory.Exists(folderPath))
+                        {
+                            Directory.CreateDirectory(folderPath);
+                        }
+
+                        // Copy the file only if the image path is valid
+                        if (!string.IsNullOrEmpty(imagepath) && File.Exists(imagepath))
+                        {
+                            File.Copy(imagepath, destinationPath, true);
+                        }
+
+                        using (MySqlCommand cmd = new MySqlCommand(updateData, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@teacherID", txtteacher_id.Text.Trim());
+                            cmd.Parameters.AddWithValue("@teacherName", txtteacher_name.Text.Trim());
+                            cmd.Parameters.AddWithValue("@teacherGender", comteacher_gender.Text.Trim());
+                            cmd.Parameters.AddWithValue("@teacherAddress", txtteacher_address.Text.Trim()); // Fixed Incorrect Assignment
+                            cmd.Parameters.AddWithValue("@teacherStatus", comteacher_status.Text.Trim());
+                            cmd.Parameters.AddWithValue("@teacherImage", destinationPath);
+                            cmd.Parameters.AddWithValue("@dateUpdate", today.ToString("yyyy-MM-dd")); // Fixed Date Format
+
+                            cmd.ExecuteNonQuery();
+
+                            teacherDisplayData();
+
+                            MessageBox.Show("Updated Successfully!", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            clearFields(); // Clear Fields After Update
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Update Cancelled", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    
+                    MessageBox.Show("Update failed: " + ex.Message, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
-                    conn.Close();
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        conn.Close();
+                    }
                 }
             }
         }
+
 
         private void griddata_teacher_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -218,9 +267,12 @@ namespace CampusManagementSystem
                 // Load image correctly
                 string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "teacher_images", row.Cells[5].Value.ToString());
 
-                if (File.Exists(imagePath)) // Ensure the file exists
+                if (File.Exists(imagePath))
                 {
-                    imgteacher.Image = Image.FromFile(imagePath);
+                    using (var stream = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
+                    {
+                        imgteacher.Image = Image.FromStream(stream);
+                    }
                 }
                 else
                 {
@@ -230,5 +282,59 @@ namespace CampusManagementSystem
             }
         }
 
+        private void btnteacher_delete_Click(object sender, EventArgs e)
+        {
+            DateTime today = DateTime.Today;
+
+            MySqlConnection conn = new MySqlConnection(connString);
+
+            if(txtteacher_id.Text == "")
+            {
+                MessageBox.Show("Please select item first", "Error message", MessageBoxButtons.OK , MessageBoxIcon.Error);
+            }
+            else
+            {
+                if(conn.State != ConnectionState.Open)
+                {
+                    DialogResult check = MessageBox.Show("Are you sure you want to Delete Teacher ID: " + txtteacher_id.Text + " ? ", "Confirmation Massage", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                   
+                    if (check == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            conn.Open();
+
+                            string deleteData = "UPDATE teachers SET date_delete = @dateDelete WHERE teacher_id = @teacherID";
+
+                            using (MySqlCommand cmd = new MySqlCommand(deleteData, conn))
+                            {
+                                cmd.Parameters.AddWithValue("@dateDelete", today.ToString("yyyy-MM-dd"));
+                                cmd.Parameters.AddWithValue("@teacherID", txtteacher_id.Text.Trim().ToString());
+
+                                cmd.ExecuteNonQuery();
+
+                                teacherDisplayData(); 
+                                MessageBox.Show("Deleted Successfully!", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                clearFields();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error connecting Database: " + ex, "Error message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        finally
+                        {
+                            conn.Close();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cancelled", "Error message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+            }
+        }
     }
 }
