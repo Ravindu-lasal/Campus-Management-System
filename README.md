@@ -54,6 +54,13 @@ campus.sql
  public string connString = "Server=localhost;Database=campus;User ID=root;Password=yourpassword;SslMode=none;";
 ```
 
+<p>3.  Login user name and password</p>
+
+```
+ username: admin
+ password: admin123
+```
+
   
   
 <h2>💻 Built with</h2>
