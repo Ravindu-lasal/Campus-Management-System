@@ -46,7 +46,9 @@ campus.sql
 ```
 *    Go to File > Open SQL Script and select the .sql file.
 *    Click Execute to run the script.
-*    Update your database connection settings in All form
+
+  
+<p>3.  Update your database connection settings in All application forms</p>
   
 ```
  public string connString = "Server=localhost;Database=campus;User ID=root;Password=yourpassword;SslMode=none;";
